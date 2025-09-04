@@ -1,0 +1,21 @@
+first_name,last_name,phone_number,email,department,salary,title
+Emma,Johansson,+46 70 123 45 67,emma.johansson@example.se,IT,52000,Software Developer
+William,Andersson,+46 72 345 67 89,william.andersson@example.se,HR,42000,HR Specialist
+Olivia,Karlsson,+46 73 567 89 01,olivia.karlsson@example.se,Marketing,45000,Digital Marketing Specialist
+Hugo,Nilsson,+46 76 789 01 23,hugo.nilsson@example.se,Sales,48000,Account Manager
+Astrid,Eriksson,+46 79 901 23 45,astrid.eriksson@example.se,IT,65000,DevOps Engineer
+Axel,Larsson,+46 70 234 56 78,axel.larsson@example.se,HR,58000,Talent Acquisition Specialist
+Elsa,Olsson,+46 72 456 78 90,elsa.olsson@example.se,Marketing,38000,Marketing Coordinator
+Lucas,Persson,+46 73 678 90 12,lucas.persson@example.se,Sales,62000,Sales Manager
+Freja,Svensson,+46 76 890 12 34,freja.svensson@example.se,IT,38000,IT Support Specialist
+Oscar,Gustavsson,+46 79 012 34 56,oscar.gustavsson@example.se,HR,68000,HR Manager
+Alice,Pettersson,+46 70 345 67 89,alice.pettersson@example.se,Marketing,58000,Marketing Manager
+Liam,Jansson,+46 72 567 89 01,liam.jansson@example.se,Sales,40000,Sales Representative
+Vera,Jonsson,+46 73 789 01 23,vera.jonsson@example.se,IT,45000,QA Engineer
+Elias,Lindberg,+46 76 901 23 45,elias.lindberg@example.se,HR,32000,HR Assistant
+Agnes,Söderberg,+46 79 123 45 67,agnes.soderberg@example.se,Marketing,42000,Content Creator
+Leo,Bergström,+46 70 456 78 90,leo.bergstrom@example.se,Sales,37000,Business Development Representative
+Nova,Lundberg,+46 72 678 90 12,nova.lundberg@example.se,IT,75000,IT Manager
+Erik,Åberg,+46 73 890 12 34,erik.aberg@example.se,HR,50000,Talent Acquisition Specialist
+Maja,Ekberg,+46 76 012 34 56,maja.ekberg@example.se,Marketing,50000,Brand Manager
+Noah,Blomqvist,+46 79 234 56 78,noah.blomqvist@example.se,Sales,70000,Account Manager
