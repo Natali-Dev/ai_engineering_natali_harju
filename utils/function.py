@@ -6,11 +6,14 @@ import os
 # a) Connect python to gemini, very important that you place the api key in .env and gitignore it
 def get_gemini(prompt: str) -> str:
     """Gets API-key, and generates_content. Send '" "' to check connection.
+    \nTo get correct path: 
+    import sys
+    sys.path.append("jump back")\n
 
-    Args:
+    #### Args:
         prompt (str): message for gemini
 
-    Returns:
+    #### Returns:
         str: response from gemini
     """
     if prompt == " ":
@@ -23,8 +26,3 @@ def get_gemini(prompt: str) -> str:
     else:
         return response.text
 
-
-# get_gemini()
-# if __name__ == "__main__":
-
-#     print(get_gemini())
