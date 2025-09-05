@@ -211,3 +211,4 @@ __marimo__/
 *.duckdb
 *.duckdb.wal
 functions/
+3_txt/
