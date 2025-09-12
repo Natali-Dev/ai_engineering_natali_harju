@@ -1,65 +1,61 @@
-from data_processing import read_data
-from fastapi import FastAPI
+from data_processing import DataExplorer
+from fastapi import FastAPI, Query, APIRouter
+from contextlib import asynccontextmanager
+import pandas as pd
+from pathlib import Path
+import json
+from fastapi.responses import JSONResponse
 
-data = read_data()
-app = FastAPI()
+DATA_PATH = Path(__file__).parent 
 
-# schools = data.get("Utbildningsanordnare administrativ enhet")
+@asynccontextmanager # Cost efficent, läs in df en gång
+async def lifespan(app: FastAPI): 
+    app.state.df = pd.read_excel(DATA_PATH / "resultat-ansokningsomgang-2024(1).xlsx", sheet_name="Tabell 3", header=5).drop(columns=['SUN5 inriktning','Diarienummer','Beviljade platser utbildningsomgång 1','Beviljade platser utbildningsomgång 2','Beviljade platser utbildningsomgång 3','Beviljade platser utbildningsomgång 4','Beviljade platser utbildningsomgång 5','SeQF nivå', 'Sökta platser per utbildningsomgång','Sökta utbildningsomgångar','Beviljade utbildningsomgångar'])
+    yield
+    del app.state.df
+    
+app = FastAPI(lifespan=lifespan)
+#     
+# data = read_data()
+# app = FastAPI()
 
 # b) Make an API endpoint where you serve table 3 in JSON format for a read operation.
 
 
 @app.get("/data")
 async def get_data():
-    return data
+    data = DataExplorer(app.state.df)
+    return data.json_response()
 
 
-# c) Make endpoints where you could filter out a particular school.
+# # c) Make endpoints where you could filter out a particular school.
+# # d) Make endpoints where you could filter out a particular field.
 
 
-@app.get("/data/filter_school")
-async def filter_school(answer: str):
-    schools = []
-    for row in data:
-        if answer in row.get("Utbildningsanordnare administrativ enhet"):
-            schools.append(row)
-    return schools
+@app.get("/data/filter")
+async def read_filter(school: str = Query(None), field: str = Query(None)):
+    data = DataExplorer(app.state.df)
+    return data.filter(school, field)
+
+# # e) Make endpoint for approved (beviljad) and one for not approved (avslag).
 
 
-# d) Make endpoints where you could filter out a particular field.
-
-
-@app.get("/data/filter_field")
-async def filter_field(answer: str):
-    fields = []
-    for row in data:
-        if answer in row.get("SUN5 inriktning namn"):
-            fields.append(row)
-    return fields
-
-
-# e) Make endpoint for approved (beviljad) and one for not approved (avslag).
-
-@app.get("/data/approved")
+@app.get("/data/total_approved")
 async def approved():
-    return len([row for row in data if row.get("Beslut") == "Beviljad"])
-        
-        
-@app.get("/data/declined")
-async def declined():
-    return len([row for row in data if row.get("Beslut") == "Avslag"])
-        
+    data = DataExplorer(app.state.df)
+    return data.kpi_status()
 
-# f) Make an endpoint for some KPIs that you think is interesting for a particular stakeholder in mind.
 
-@app.get("/data/kommun")
-async def kommun(answer: str):
-    # a = approved()
-    # d = declined()
-    k = len(row for row in data if row.get("Kommun") in answer) 
-    my_kpis = {
-        "number of applications in {answer}": 10 #k
-    }
-    return k
-    
+# # f) Make an endpoint for some KPIs that you think is interesting for a particular stakeholder in mind.
+
+
+# @app.get("/data/kommun")
+# async def kommun(answer: str):
+#     # a = approved()
+#     # d = declined()
+#     k = len(row for row in data if row.get("Kommun") in answer)
+#     my_kpis = {"number of applications in {answer}": 10}  # k
+#     return k
+
+
 # g) What else do you want to be able to serve?
